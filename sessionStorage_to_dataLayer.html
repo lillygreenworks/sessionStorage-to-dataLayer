@@ -1,0 +1,82 @@
+ <html>
+ <head>
+
+
+   <script>
+     dataLayer = [{
+       'pageCategory': 'signup',
+       'visitorType': 'high-value'
+     }];
+	
+   </script>
+   <!-- Google Tag Manager -->
+   <!-- End Google Tag Manager -->
+   
+  
+   
+   <script>
+
+	function addToStorage(input){
+		console.log('adding to storage')
+		for ( property in input ) {
+		  	//console.log( property ); 
+			//console.log( "value of prop=" + input[property])
+			sessionStorage.setItem(property, input[property])
+		}
+	}
+   
+   function copyStorageToDataLayer(){
+   		console.log("copy sessionStorage to datalayer logging...");
+		for(i = 0; i < sessionStorage.length; i++){
+			var label = sessionStorage.key(i);
+			var val = sessionStorage.getItem(label); 
+			//console.log(label + "=" + val)
+			var entry = {[label]: val };
+			//console.log(entry)
+			dataLayer.push(entry);
+		}	
+   }
+   
+
+   function printStorage(){
+   		console.log("printing sessionStorage logging...");
+		for(i = 0; i < sessionStorage.length; i++){
+			key = sessionStorage.key(i)
+			val = sessionStorage.getItem(localStorage.key(i))
+			console.log(key + "=" + val );
+		}	
+   }
+   
+   function printDataLayer(){
+   		 console.log("printing datalayer logging...");
+		for(i = 0; i < dataLayer.length; i++){
+	   		var keys = Object.keys(dataLayer[i]);
+			for(j = 0; j < keys.length; j++){
+				var key = keys[j];	
+				val = dataLayer[i][key];
+				console.log(key +"==" + val);
+			}
+		}				
+   }
+	
+	function printOutput(){
+		printStorage();
+		printDataLayer();		
+	}
+	
+</script>
+
+ </head>
+<body>
+
+<button onclick="addToStorage({'clicked': 'fuckbutton'})">Fuckyou</button>
+<button onclick="addToStorage({'clicked': 'btn2-click'})">Btn 2 </button>
+<button onclick="copyStorageToDataLayer()">Copy</button>
+<button onclick="printOutput()">Print</button>
+<!--
+<button onclick="dataLayer.push({'event': 'button3-click'});">Btn 3 - just datalayer</button>
+<button onclick="dataLayer.push({'event': 'button4-click'});">Btn 4 - just datalayer</button>
+-->
+
+</body>
+</html> 
